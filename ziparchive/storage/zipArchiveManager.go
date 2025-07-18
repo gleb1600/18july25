@@ -9,21 +9,21 @@ import (
 	"time"
 )
 
-type zipArchiveManager struct {
+type ZipArchiveManager struct {
 	mu          sync.Mutex
 	ZipArchives map[string]*zipArchive
 	InProgress  int
 }
 
-func NewZipArchiveManager() *zipArchiveManager {
+func NewZipArchiveManager() *ZipArchiveManager {
 	ZAManager := make(map[string]*zipArchive)
-	return &zipArchiveManager{
+	return &ZipArchiveManager{
 		ZipArchives: ZAManager,
 		InProgress:  0,
 	}
 }
 
-func (zam *zipArchiveManager) CreateZipArchive() *zipArchive {
+func (zam *ZipArchiveManager) CreateZipArchive() *zipArchive {
 	zam.mu.Lock()
 	defer zam.mu.Unlock()
 
@@ -42,7 +42,7 @@ func (zam *zipArchiveManager) CreateZipArchive() *zipArchive {
 	return &za
 }
 
-func (zam *zipArchiveManager) FindTask(id string) (*task, error) {
+func (zam *ZipArchiveManager) FindTask(id string) (*task, error) {
 	zam.mu.Lock()
 	defer zam.mu.Unlock()
 
